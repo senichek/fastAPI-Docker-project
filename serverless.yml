@@ -1,0 +1,23 @@
+service: fastapi-lambda
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-1
+  timeout: 30
+  ecr:
+    images:
+      fastapi: 
+        path: . # path to the directory containing the Dockerfile
+
+functions:
+  api:
+    image:
+      name: fastapi
+    events:
+      - httpApi:
+          path: /
+          method: get
+      - httpApi:
+          path: /items/{item_id}
+          method: get

@@ -8,7 +8,7 @@ COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0 /lambda-adapter /opt
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY ./app ./app
 
 # Install FastAPI and Uvicorn
 RUN pip install fastapi uvicorn
@@ -17,4 +17,4 @@ RUN pip install fastapi uvicorn
 EXPOSE 8000
 
 # Run uvicorn server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -14,6 +14,9 @@ COPY ./app ./app
 RUN pip install fastapi uvicorn
 
 # Expose port 8080
+# By default, Lambda Web Adapter assumes the web app is listening
+# on port 8080. If not, you can specify the port via configuration.
+# https://github.com/awslabs/aws-lambda-web-adapter#configurations
 EXPOSE 8080
 
 # Run uvicorn server

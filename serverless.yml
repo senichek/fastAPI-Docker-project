@@ -4,7 +4,10 @@ provider:
   name: aws
   runtime: python3.8
   region: ${env:AWS_REGION}
-  stage: ${opt:stage, 'dv'}  
+  stage: ${opt:stage, 'dv'}
+  apiGateway:
+    apiKeySourceType: HEADER
+    minimumCompressionSize: 1024
 
 functions:
   api:
@@ -12,8 +15,8 @@ functions:
       uri: ${env:AWS_ACCOUNT_ID}.dkr.ecr.${env:AWS_REGION}.amazonaws.com/fastapi-lambda:latest
     events:
       - httpApi:
-          path: /
+          path: /{proxy+}
           method: get
-      - httpApi:
-          path: /items/{item_id}
-          method: get
+      # - httpApi:
+      #     path: /items/{item_id}
+      #     method: get

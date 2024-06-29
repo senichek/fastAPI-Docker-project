@@ -3,17 +3,13 @@ service: fastapi-lambda
 provider:
   name: aws
   runtime: python3.8
-  region: eu-west-1
-  timeout: 30
-  ecr:
-    images:
-      fastapi: 
-        path: . # path to the directory containing the Dockerfile
+  region: ${env:AWS_REGION}
+  stage: ${opt:stage, 'dv'}  
 
 functions:
   api:
     image:
-      name: fastapi
+      uri: ${env:AWS_ACCOUNT_ID}.dkr.ecr.${env:AWS_REGION}.amazonaws.com/fastapi-lambda:latest
     events:
       - httpApi:
           path: /

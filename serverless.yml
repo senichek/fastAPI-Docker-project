@@ -15,6 +15,8 @@ functions:
   api:
     image:
       uri: ${env:AWS_ACCOUNT_ID}.dkr.ecr.${env:AWS_REGION}.amazonaws.com/fastapi-lambda:latest
+    environment:
+      STAGE: ${opt:stage}
     events:
       - http:
           path: /{proxy+}

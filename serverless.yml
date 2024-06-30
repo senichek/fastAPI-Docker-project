@@ -8,15 +8,18 @@ provider:
   apiGateway:
     apiKeySourceType: HEADER
     minimumCompressionSize: 1024
+    apiKeys:
+      - name: test-key
 
 functions:
   api:
     image:
       uri: ${env:AWS_ACCOUNT_ID}.dkr.ecr.${env:AWS_REGION}.amazonaws.com/fastapi-lambda:latest
     events:
-      - httpApi:
+      - http:
           path: /{proxy+}
           method: get
-      # - httpApi:
-      #     path: /items/{item_id}
-      #     method: get
+      - http:
+          path: /items/{item_id}
+          method: get
+          private: true

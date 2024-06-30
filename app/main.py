@@ -7,12 +7,12 @@ stage_name = os.environ.get("STAGE", None)
 
 print(f"Stage is: {stage_name}")
 
-app = FastAPI()
+app = FastAPI(openapi_prefix="/stage_name")
 
 @app.get("/docs", include_in_schema=False)
 async def custom_swagger_ui_html():
     return get_swagger_ui_html(
-        openapi_url=f"/{stage_name}/openapi.json",
+        openapi_url=f"/openapi.json",
         title="Your API Swagger UI"
     )
 
